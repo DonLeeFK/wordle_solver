@@ -159,9 +159,25 @@ def selectWord_parallel(candidates: list, wordFreqDict = None, alpha=10000, proc
 
     return best_word, max_score
 
+def input_word_check(word):
+    if len(word)!= 5:
+        return False
+    for letter in word:
+        if letter not in 'abcdefghijklmnopqrstuvwxyz':
+            return False
+    return True 
+
+def input_response_check(response):
+    if len(response)!= 5:
+        return False
+    for letter in response:
+        if letter not in '🟩🟨🟥':
+            return False
+    return True 
+
 if __name__ == "__main__":
-    intab = 'GYRB'
-    outtab = '🟩🟨🟥🟥'
+    intab = 'GYRBgyrb'
+    outtab = '🟩🟨🟥🟥🟩🟨🟥🟥'
     trantab = str.maketrans(intab, outtab)
     wordList = []
     with open('words', 'r') as file:
@@ -180,16 +196,20 @@ if __name__ == "__main__":
     
     
     
-    print("Wordle Solver v0.1")
+    print("Wordle Solver v0.2")
     candidates = wordList.copy()
-    #word, _ = selectWord_parallel(candidates)
+    #word = selectWord_parallel(candidates)
     #print(word)
     #word_freq, _ = selectWord_parallel(candidates, wordFreqDict)
     #print(word_freq)
-    word = 'tares'
+    word = 'raise'
     print(' '.join(word.upper()))
     response = input("INPUT RESPONSE:\n")
     response = response.translate(trantab).strip()
+    while not input_response_check(response):
+        print("Invalid input, please try again.")
+        response = input("INPUT RESPONSE:\n")
+        response = response.translate(trantab).strip()
     response = ' '.join(response)
     attempt = 0
     record_candidates = [candidates]
@@ -248,8 +268,19 @@ if __name__ == "__main__":
         word = input("INPUT WORD:\n").lower()
         if word == "":
             word = recommend_word
+            print("No input, use recommend word: ", ' '.join(recommend_word.upper()))
+        while word != recommend_word and not input_word_check(word):
+            print("Invalid input, please try again.")
+            word = input("INPUT WORD:\n").lower()
+            if word == "":
+                word = recommend_word
+                print("No input, use recommend word: ", ' '.join(recommend_word.upper()))
         response = input("INPUT RESPONSE:\n")
         response = response.translate(trantab).strip()
+        while not input_response_check(response):
+            print("Invalid input, please try again.")
+            response = input("INPUT RESPONSE:\n")
+            response = response.translate(trantab).strip()
         response = ' '.join(response)
      
         record_word.append(word)
