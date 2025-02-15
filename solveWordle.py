@@ -203,7 +203,7 @@ if __name__ == "__main__":
     #word_freq, _ = selectWord_parallel(candidates, wordFreqDict)
     #print(word_freq)
     word = 'raise'
-    print(' '.join(word.upper()))
+    print('first word: ',' '.join(word.upper()))
     response = input("INPUT RESPONSE:\n")
     response = response.translate(trantab).strip()
     while not input_response_check(response):
