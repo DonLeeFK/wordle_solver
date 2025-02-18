@@ -219,7 +219,7 @@ if __name__ == "__main__":
         attempt += 1
         candidates = selectNewCandidates(word, response, candidates)
         #print(candidates)
-        recommend_word, entropy = selectWord(candidates, wordFreqDict=wordFreqDict)
+        recommend_word, entropy = selectWord(candidates, wordFreqDict=wordFreqDict, alpha=attempt*2000)
         #recommend_word, entro = selectWord(candidates, wordFreqDict=None)
         print('first attempt: ',' '.join(recommend_word.upper()), " score: ", entropy)
         try_times = 0
