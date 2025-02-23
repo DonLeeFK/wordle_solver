@@ -213,8 +213,8 @@ if __name__ == "__main__":
     response = ' '.join(response)
     attempt = 0
     record_candidates = [candidates]
-    record_word = ['rates']
-    record_pattern = ['N N N N N']
+    record_word = [word]
+    record_pattern = [response]
     while response != '🟩 🟩 🟩 🟩 🟩':
         attempt += 1
         candidates = selectNewCandidates(word, response, candidates)
